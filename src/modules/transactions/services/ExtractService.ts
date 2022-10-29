@@ -1,35 +1,53 @@
 import { injectable, inject } from 'tsyringe';
+import axios from 'axios';
 
-import AppError from '@shared/errors/AppError';
-import IAccountsRepository from '@modules/accounts/repositories/IAccountsRepository';
-import ITransactionsRepository from '../repositories/ITransactionsRepository';
-import Transaction from '../infra/typeorm/entities/Transaction';
-import IExtractDTO from '../dtos/IExtractDTO';
+require('dotenv').config();
+
+// import AppError from '@shared/errors/AppError';
+// import IAccountsRepository from '@modules/accounts/repositories/IAccountsRepository';
+// import ITransactionsRepository from '../repositories/ITransactionsRepository';
+// import Transaction from '../infra/typeorm/entities/Transaction';
+// import IExtractDTO from '../dtos/IExtractDTO';
 
 @injectable()
 class ExtractService {
   constructor(
-    @inject('TransactionsRepository')
-    private transactionsRepository: ITransactionsRepository,
+    // @inject('TransactionsRepository')
+    // private transactionsRepository: ITransactionsRepository,
 
-    @inject('AccountsRepository')
-    private accountsRepository: IAccountsRepository,
+    // @inject('AccountsRepository')
+    // private accountsRepository: IAccountsRepository,
   ) {
     // do nothing.
   }
 
-  public async execute({
-    idAccount, period,
-  }: IExtractDTO): Promise<Transaction[]> {
-    const checkAccountExist = await this.accountsRepository.findById(idAccount);
+  public async execute({}: any): Promise<any> {
+  
+    const { data } = await axios.post(
+      "https://api.pluggy.ai/auth", 
+      { clientId: process.env.CLIENT_ID, clientSecret: process.env.CLIENTE_SECRET }, 
+      {
+        headers: { accept: 'application/json', 'content-type': 'application/json' },
+      },
+    );
 
-    if (!checkAccountExist) {
-      throw new AppError("Account don't exist or are blocked");
-    }
+    const { apiKey } = data;
 
-    const transactions = await this.transactionsRepository.extract({ idAccount, period });
+    const { data } = await axios.post<any>(
+      'https://api.pluggy.ai/items',
+      { connectorId: 8, parameters: {
+          user: 'user-ok',
+          password: 'password-ok',
+        } 
+      },
+      {
+        headers: { 'X-API-KEY': apiKey },
+      },
+    );
 
-    return transactions;
+    console.log(data);
+    
+    return "api_key";
   }
 }
 

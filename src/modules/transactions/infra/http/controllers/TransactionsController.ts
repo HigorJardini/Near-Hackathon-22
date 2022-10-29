@@ -8,20 +8,14 @@ export default class TransactionsController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { idAccount } = request.params;
+    // const { idAccount } = request.params;
 
-    const periodBegin = request.query.periodBegin as string;
-    const periodEnd = request.query.periodEnd as string;
+    // const periodBegin = request.query.periodBegin as string;
+    // const periodEnd = request.query.periodEnd as string;
 
     const extractService = container.resolve(ExtractService);
 
-    const account = await extractService.execute({
-      idAccount,
-      period: {
-        periodBegin,
-        periodEnd,
-      },
-    });
+    const account = await extractService.execute();
 
     return response.json(account);
   }
