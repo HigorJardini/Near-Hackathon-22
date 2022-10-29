@@ -33,21 +33,50 @@ class ExtractService {
 
     const { apiKey } = data;
 
-    const { data } = await axios.post<any>(
-      'https://api.pluggy.ai/items',
-      { connectorId: 8, parameters: {
-          user: 'user-ok',
-          password: 'password-ok',
-        } 
-      },
+    const item_data:any = null;
+
+    // const { data: item_data } = await axios.post<any>(
+    //   'https://api.pluggy.ai/items',
+    //   { connectorId: 8, parameters: {
+    //       user: 'user-ok',
+    //       password: 'password-ok',
+    //     } 
+    //   },
+    //   {
+    //     headers: { 'X-API-KEY': apiKey },
+    //   },
+    // );
+    // console.log(item_data);
+
+    const item_key = item_data !== null ? data.id : process.env.ACCOUNT_ID;
+
+    const { data : data_item } = await axios.get(
+      `https://api.pluggy.ai/accounts?itemId=${item_key}`, 
       {
-        headers: { 'X-API-KEY': apiKey },
+        headers: { accept: 'application/json', 'content-type': 'application/json', 'X-API-KEY': apiKey },
       },
     );
 
-    console.log(data);
-    
-    return "api_key";
+    if(data_item.total > 0) {
+      const results = (value:any) =>  {
+        if(value.type == "BANK"){
+          return value.id;
+        }
+          ;
+      }
+      const account:any = data_item.results.filter(results);
+
+      const { data: data_transaction } = await axios.get(
+        `https://api.pluggy.ai/transactions?accountId=${account[0].id}`, 
+        {
+          headers: { accept: 'application/json', 'content-type': 'application/json', 'X-API-KEY': apiKey },
+        },
+      );
+
+      return data_transaction;
+    } else {
+      return new Error();
+    }
   }
 }
 
