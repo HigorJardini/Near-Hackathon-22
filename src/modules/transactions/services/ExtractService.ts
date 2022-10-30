@@ -72,8 +72,58 @@ class ExtractService {
           headers: { accept: 'application/json', 'content-type': 'application/json', 'X-API-KEY': apiKey },
         },
       );
-      
+
+      const category_itens = data_transaction.results.map(element => {
+        
+          switch(element.description){
+            case "TRANSF RECEBIDO PIX":
+                element.category = "Recebimento Clientes"
+                break;
+            case "PAGAMENTO CARTAO CREDITO":
+                element.category = "Pagamento Fatura Crédito"
+                break;
+            case "TRANSF ENVIADA PIX":
+                element.category = "Pagamento Fornecedor"
+                break;
+            case "TRANSF RECEBIDO TED":
+                element.category = "Recebimento Clientes"
+                break;
+            case "TRANSF ENVIADO TED":
+                element.category = "Pagamento Fornecedor"
+                break;
+            case "REDE   ELO  DB083323902":
+                element.category = "Recebimento Rede Elo"
+                break;
+            case "PAGAMENTO CARTAO DE DEBITO GETNET-MAESTRO":
+                element.category = "Recebimento Cartão Débito GETNET"
+                break;
+            case "REDE   VISA DB083323902":
+                element.category = "Recebimento Cartão Crédito Rede VISA"
+                break;
+            case "PGTO TITULO OUTRO BCO - INTERNET BANCO YAMAHA MOTOR DO BRA":
+                element.category = "Pagamento Boleto Bancário"
+                break;
+            case "RESGATE AUT CONTAMAX EMPRESARIAL":
+                element.category = "Resgate Aut Contamax"
+                break;
+            case "PGTO TITULO OUTRO BCO - INTERNET BELLA VIOLA MADEIRAS":
+                element.category = "Pagamento Boleto Bancário"
+                break;
+            case "TRANSF RECEBIDO MESMO TITUL DOC":
+                element.category = "Recebimento Clientes"
+                break;
+            case "CXE SAQUE 000091.001008":
+                element.category = "Saque Terminal"
+                break;
+          }
+          
+          return element
+
+      });
+
+      data_transaction.results = category_itens;
       return data_transaction;
+
     } else {
       return new Error();
     }
