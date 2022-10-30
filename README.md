@@ -9,7 +9,6 @@
   - [Running migrations](https://github.com/HigorJardini/Near-Hackathon-22#running-migrations)
   - [Running development](https://github.com/HigorJardini/Near-Hackathon-22#running-development)
   - [Running build](https://github.com/HigorJardini/Near-Hackathon-22#running-build)
-  - [Running tests](https://github.com/HigorJardini/Near-Hackathon-22#running-tests)
 - [Architecture](https://github.com/HigorJardini/Near-Hackathon-22#Architecture)
   - [Modules Folder](https://github.com/HigorJardini/Near-Hackathon-22#modules)
   - [Shared Folder](https://github.com/HigorJardini/Near-Hackathon-22#shared)
@@ -21,7 +20,7 @@
 That application was developed for an challenge from Hackathon 2022. Using NodeJs + Express + Typescript
 The Objective are create a api for a system of management accounting
 
-- [NodeJs:14](https://nodejs.org/en/) - NodeJs
+- [NodeJs:14/18](https://nodejs.org/en/) - NodeJs
 - [Typescript:4.4](https://www.typescriptlang.org/) - Typescript
 - [Yarn:1](https://yarnpkg.com/) - Yarn OR [NPM:1](https://www.npmjs.com/) - NPM
 - [PostgreSQL:14](https://www.postgresql.org/)
@@ -85,19 +84,6 @@ $ yarn build
 $ yarn start
 ```
 
-### Running tests
-
-Exist scripts in the project root to execute all tests made with jest
-
-``` bash
-
-# run all tests of the application
-$ yarn test
-
-```
-
-Will generate a folder label coverage, inside you will see a index.html
-See data about all tests
 
 ## Architecture
 
