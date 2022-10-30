@@ -72,7 +72,7 @@ class ExtractService {
           headers: { accept: 'application/json', 'content-type': 'application/json', 'X-API-KEY': apiKey },
         },
       );
-
+      
       return data_transaction;
     } else {
       return new Error();
