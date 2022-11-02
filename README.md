@@ -58,7 +58,7 @@ But you can run the application with docker
 #### Mobile:
 
 <p align="center" width="100%">
-    <img src="https://i.imgur.com/oh6nwsm.png">
+    <img src="https://i.imgur.com/Zj8Kloz.png">
 </p>
 
 <p align="center" width="100%">
