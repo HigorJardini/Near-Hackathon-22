@@ -150,4 +150,4 @@ $ yarn start
 
 ### Thank you! :)
 
-For doubts email me `higorjardini07@gmail.com`.
+For doubts my profile on [Linkedin](www.linkedin.com/in/higorjardini).
